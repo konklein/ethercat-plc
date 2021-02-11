@@ -93,6 +93,24 @@ pub struct EL5002 {
 }
 
 #[repr(C, packed)]
+#[derivce(SlaveProcessImage, Default)]
+#[pdos(3, Input,  0x1A00, 0x1A02)]
+#[pdos(2, Output, 0x1600, 0x1601)]
+pub struct EL5072 {
+    #[entry(0x1A00, 0x6000, 1)]  pub status_ch1: u16,
+    #[entry(0x1A00, 0x6001, 1)]  pub value_ch1: u32,
+    #[entry(0x1A00, 0x6001, 2)]  pub value2_ch1: u32,
+    #[entry(0x1A01, 0x6010, 1)]  pub status_ch2: u16,
+    #[entry(0x1A01, 0x6011, 1)]  pub value_ch2: u32,
+    #[entry(0x1A01, 0x6011, 2)]  pub value2_ch2: u32,
+
+    #[entry(0x1600, 0x7000, 1)]  pub control_ch1: u16,
+    #[entry(0x1600, 0x7000, 11)] pub set_counter_ch1: u32,
+    #[entry(0x1601, 0x7010, 1)]  pub control_ch2: u16,
+    #[entry(0x1601, 0x7010, 11)] pub set_counter_ch2: u32,
+}
+
+#[repr(C, packed)]
 #[derive(SlaveProcessImage, Default)]
 #[pdos(3, Input,  0x1A01, 0x1A03, 0x1A04, 0x1A08)]
 #[pdos(2, Output, 0x1601, 0x1602, 0x1604)]
